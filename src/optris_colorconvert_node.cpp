@@ -73,8 +73,12 @@ void onThermalDataReceive(const sensor_msgs::ImageConstPtr& image)
 
   _iBuilder.convertTemperatureToPaletteImage(_bufferThermal, true);
 
+  ros::NodeHandle n_("~");
+  std::string _thermalframe_id = "thermal_image";
+  n_.getParam("thermal_frame_id", _thermalframe_id);
+
   sensor_msgs::Image img;
-  img.header.frame_id = "thermal_image_view";
+  img.header.frame_id = _thermalframe_id;
   img.height 	        = image->height;
   img.width 	        = image->width;
   img.encoding        = "rgb8";
